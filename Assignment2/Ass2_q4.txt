@@ -1,14 +1,14 @@
-public class question_4 {
-    public static void main(String[] args) {
-
-        long k=1, total=0;
-
-        while(sum<=2147483647){
-            total+=(k*k);
-            k++;
+public class p4{
+    public static void main(String[] args){
+        int n=1;
+        int sum = 1;
+        while(n<Integer.MAX_VALUE){
+            if(sum==n*n){
+                System.out.println("Ans: "+n);
+            }
+            n+=1;
+            sum+=n;
         }
-
-        System.out.println("The smallest value of i is: " +(k-1));
-
+        System.out.println("Final loop, sum: "+sum+" n: "+n);
     }
 }
