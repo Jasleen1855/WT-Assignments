@@ -1,76 +1,67 @@
-import java.util.*;
+import java.util.Scanner;
+//SID - 18103073
+//By :  Madhav Oberoi
+public class ques1 {
+	public static void main(final String[] args) {
+		System.out.println("Enter the first string");
+		// taking user input
+		final Scanner scan = new Scanner(System.in);
+		String mainString, pattern;
+		mainString = scan.nextLine();
 
-public class q1{
-	public static void main(String args[]){
+		System.out.println("Enter the second string");
+		pattern = scan.next();
 
-		System.out.print("Enter actual string : ");
-		String S1;
-		Locale ENGLISH = Locale.forLanguageTag("en");
-		Scanner cmd = new Scanner(System.in);
+		scan.close();
+		int z = 0, ans = 0;
+		final int len1 = mainString.length(), len2 = pattern.length();
+		// checking if pattern's length is greater than that of string in which we need
+		//here we are using sliding window technique otherwise we can also check every substring of length len2 and sort them to check equality with sorted pattern string
+		if (len1 < len2)
+			System.out.println("0");
+		else {
+			int[] count1;
 
-		S1 = cmd.nextLine();
-		S1 = S1.toLowerCase(ENGLISH);
+			count1 = new int[256];
 
-		System.out.print("Enter string to be searched: ");
-		String Pat;
+			int[] count2;
 
-		Pat = cmd.nextLine();
-		Pat = Pat.toLowerCase(ENGLISH);
-		int[] sarr,parr;
-		sarr = new int[26];
-		parr = new int[26];
-		for(int i = 0;i < 26;i++)
-		{
-			sarr[i] = 0;
-			parr[i] = 0;
-		}
+			count2 = new int[256];
 
+			for (int i = 0; i < len2; i++)
+				count2[(int) pattern.charAt(i)]++;
 
-		for(int i = 0;i < Pat.length();i++){
-			sarr[(int)(Pat.charAt(i) -'a')]++;
-			parr[(int)(Pat.charAt(i) -'a')]++;
-		}
-		int len = Pat.length();
-		int count = 0;
-		int ans = 0;
-		char c ='\0';
+			for (int i = 0; i < len2; i++) {
 
-		for(int i = 0; i <= S1.length() - Pat.length();i++)
-		{
-			c = S1.charAt(i);
+				int k = (int) mainString.charAt(i);
+				if (count1[k] < count2[k])
+					z++;
+				count1[k]++;
 
-			if((sarr[(int)(c -'a')] > 0))
-			{
-				parr[(int)(c -'a')]--;
-				count++;
-				char d ='\0';
-
-				for(int j = 1;j < len;j++)
-				{
-					d = S1.charAt(i+j);
-
-					if((parr[(int)(d -'a')] > 0))
-					{
-						count++;
-						parr[(int)(d-'a')]--;
-					}
-					else
-						break;
-				}
-
-				if(count == len)
-				{
+				if (z == len2)
 					ans++;
-				}
-				else
-					count = 0;
 			}
 
-			for(int j = 0;j < 26;j++)
-				parr[j] = sarr[j];
-			count = 0;
+			for (int i = len2; i < len1; i++) {
+				int k = (int) mainString.charAt(i);
+				int p = (int) mainString.charAt(i - len2);
+
+				if (count1[p] <= count2[p])
+					z--;
+
+				count1[p]--;
+
+				if (count1[k] < count2[k])
+					z++;
+
+				count1[k]++;
+
+				if (z == len2)
+					ans++;
+			}
+			System.out.println("Total count of pattern in given string is");
+			System.out.println(ans);
 		}
-		System.out.println("String is present " + ans + " times");
-		return;
 	}
+
 }
