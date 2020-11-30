@@ -1,58 +1,32 @@
-import java.util.*;
+import java.util.Scanner;
+public class Program4{
+    public static void main(String[] args){
+        Scanner obj = new Scanner(System.in);
+        System.out.print("Enter string 1 (lowercase letters only): ");
+        String s1 = obj.nextLine();
+        System.out.print("Enter string 2 (lowercase letters only): ");
+        String s2 = obj.nextLine();
+        int n1 = s1.length(), n2 = s2.length();
+        int[] d_s1 = new int[26] , d_s2 = new int[26];
 
-public class q4{
-
-public static String foo(String str)
-{
-    char temp[] = str.toCharArray();
-    Arrays.sort(temp);
-    return new String(temp);
-}
-public static void main(String args[]){
- 	Locale ENGLISH = Locale.forLanguageTag("en");
-	System.out.println("Enter first String");
-	String S1;
-
-	Scanner cmd =new Scanner(System.in);
-	S1 = cmd.nextLine();
-	S1 = S1.toLowerCase(ENGLISH);
-
-	System.out.println("Enter second String");
-	String S2;
-
-	//Scanner cmd =new Scanner(System.in);
-	S2 = cmd.nextLine();
-	S2 = S2.toLowerCase(ENGLISH);
-
-	int n1 = S1.length();
-	int n2 = S2.length();
-
-	if(n1 != n2)
-	{
-		System.out.println("Strings are not anagrams of each other");
-	}
-	else
-	{
-		S1 = foo(S1);
-		S2 = foo(S2);
-
-		int flag = 0;
-		for(int i = 0;i < n1 ; i++)
-		{
-			if(S1.charAt(i) != S2.charAt(i))
-			{
-				flag = 1;
-			}
-		}
-			if(flag == 0)
-			{
-				System.out.println("Strings are anagrams of each other");
-			}
-			else
-			{
-				System.out.println("Strings are not anagrams of each other");
-			}
-		}
-		return;
-	}
+        for(int i=0; i<n1; i++){
+            d_s1[s1.charAt(i)-'a']++;
+        }
+        for(int i=0; i<n2; i++){
+            d_s2[s2.charAt(i)-'a']++;
+        }
+        boolean ans = true;
+        for(int i=0;i<26;i++){
+            if(d_s1[i]!=d_s2[i]){
+                ans = false;
+                break;
+            }
+        }
+        if(ans){
+            System.out.println("Yes strings are anagrams!");
+        }
+        else{
+            System.out.println("No strings are not anagrams!");
+        }
+    }
 }
